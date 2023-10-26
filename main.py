@@ -5,18 +5,20 @@ class Planet:
         self.largeur_de_la_grille = largeur_de_la_grille
         self.hauteur_de_la_grille = hauteur_de_la_grille
         self.display_planet = [[ 0 for hauteur in range(self.largeur_de_la_grille)] for largeur in range(self.hauteur_de_la_grille)] 
+        
 
     def display(self): 
+        self.display_planet = [[ 0 for hauteur in range(self.largeur_de_la_grille)] for largeur in range(self.hauteur_de_la_grille)] 
         for ligne in self.display_planet:
             print(*ligne)
         print("\n-------------------\n")
 
 
 class Poisson:
-    def __init__(self, Planet ):
-        self.x = random.choice(range(Planet.largeur_de_la_grille))
-        self.y = random.choice(range(Planet.hauteur_de_la_grille))
-        self.Planet = Planet
+    def __init__(self, Planet):
+        self.x = random.choice(range(10))
+        self.y = random.choice(range(10))
+        
 
 
     def deplacement(self):
@@ -69,6 +71,7 @@ poissons = [Poisson(planete_1) for _ in range(5)]
 chronon = 0
 
 while chronon < 50:
-    poisson_1.deplacement()
+    for poisson in poissons:
+        poisson.deplacement()
     planete_1.display()
     chronon += 1
