@@ -20,10 +20,7 @@ class Poisson:
 
     def deplacement(self):
         valeur_poisson =  "🐟"
-        
-        
         deplacement_possible = [[self.x + 1,self.y],[self.x - 1, self.y],[self.x, self.y + 1],[self.x, self.y -1]]
-
 
         while True:
             deplacement_choisi = random.choice(deplacement_possible)
@@ -36,7 +33,7 @@ class Poisson:
                 # Je déplace le poisson
                 self.x = nouveau_x % self.planet.largeur_de_la_grille
                 self.y = nouveau_y % self.planet.hauteur_de_la_grille
-                # je change la nouvelle par "🐟"
+                # Je change la nouvelle par "🐟"
                 self.planet.display_planet[self.y][self.x] = valeur_poisson
                 break
 
@@ -75,16 +72,19 @@ class Poisson:
         # print("-------------------------------")
             
 
+# Paramétrages du monde 1
+def monde_1():
+    planete_1 = Planet(50, 50)
+    poissons = [Poisson(planete_1) for _ in range(100)]
 
+    chronon = 0
 
-planete_1 = Planet(50, 50)
-poissons = [Poisson(planete_1) for _ in range(50)]
+    while chronon < 50:
+        planete_1.display()
+        for poisson in poissons:
+            poisson.deplacement()
+        
+        chronon += 1
 
-chronon = 0
-
-while chronon < 50:
-    planete_1.display()
-    for poisson in poissons:
-        poisson.deplacement()
-    
-    chronon += 1
+# Appel du monde 1
+monde_1()
