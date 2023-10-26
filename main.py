@@ -3,10 +3,11 @@ import random
 largeur_de_la_grille = 10
 hauteur_de_la_grille = 10
 
-grille = [[0 for hauteur in range(largeur_de_la_grille)] for largeur in range(hauteur_de_la_grille)]
+grille = [[ 0 for hauteur in range(largeur_de_la_grille)] for largeur in range(hauteur_de_la_grille)]
 
-x = 5
-y = 5
+
+x = random.choice(range(largeur_de_la_grille))
+y = random.choice(range(hauteur_de_la_grille))
 valeur_poisson = 1  
 grille[y % hauteur_de_la_grille][x % largeur_de_la_grille] = valeur_poisson
 
@@ -39,7 +40,7 @@ while chronon < 50:
 
     
     for ligne in grille:
-        print(ligne)
+        print(*ligne)
     print("-------------------------------")
 
     chronon += 1
