@@ -5,7 +5,7 @@ class Planet:
     def __init__(self,largeur_de_la_grille, hauteur_de_la_grille):
         self.largeur_de_la_grille = largeur_de_la_grille
         self.hauteur_de_la_grille = hauteur_de_la_grille
-        self.grille = 
+    
 
     def display_planet(self): 
       self.display_planet = [[ 0 for hauteur in range(self.largeur_de_la_grille)] for largeur in range(self.hauteur_de_la_grille)]  
@@ -40,14 +40,14 @@ class Fish:
         # J'incrémente de 1 pour qu'un nouveau chronon s'écoule
        self.chronon += 1
 
-    # Je crée une méthode breeding pour la reproduction des poissons
-    def breeding(self):
-         # Je crée une condition pour que mes poissons se reproduisent 
-        # qu'après 8 chronons
-        if self.chronon == 8:
-        # Je déclare une nouvelle variable available_position pour afficher
-        # les positions vides sur la planète
-            available_position = 
+    # # Je crée une méthode breeding pour la reproduction des poissons
+    # def breeding(self):
+    #      # Je crée une condition pour que mes poissons se reproduisent 
+    #     # qu'après 8 chronons
+    #     if self.chronon == 8:
+    #     # Je déclare une nouvelle variable available_position pour afficher
+    #     # les positions vides sur la planète
+    #         available_position = 
        
        
 
