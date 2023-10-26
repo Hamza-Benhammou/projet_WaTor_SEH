@@ -1,46 +1,77 @@
 import random
 
-largeur_de_la_grille = 10
-hauteur_de_la_grille = 10
+class Planet:
+    def __init__(self,largeur_de_la_grille, hauteur_de_la_grille):
+        self.largeur_de_la_grille = largeur_de_la_grille
+        self.hauteur_de_la_grille = hauteur_de_la_grille
+        self.display_planet = [[ 0 for hauteur in range(self.largeur_de_la_grille)] for largeur in range(self.hauteur_de_la_grille)] 
+        
 
-grille = [[ 0 for hauteur in range(largeur_de_la_grille)] for largeur in range(hauteur_de_la_grille)]
+    def display(self): 
+        self.display_planet = [[ 0 for hauteur in range(self.largeur_de_la_grille)] for largeur in range(self.hauteur_de_la_grille)] 
+        for ligne in self.display_planet:
+            print(*ligne)
+        print("\n-------------------\n")
 
 
-x = random.choice(range(largeur_de_la_grille))
-y = random.choice(range(hauteur_de_la_grille))
-valeur_poisson = 1  
-grille[y % hauteur_de_la_grille][x % largeur_de_la_grille] = valeur_poisson
+class Poisson:
+    def __init__(self, Planet):
+        self.x = random.choice(range(10))
+        self.y = random.choice(range(10))
+        
+
+
+    def deplacement(self):
+        # self.x = random.choice(range(Planet.largeur_de_la_grille))
+        # self.y = random.choice(range(Planet.hauteur_de_la_grille))
+        valeur_poisson =  "🐟"
+        Planet.display_planet[self.y % Planet.hauteur_de_la_grille][self.x % Planet.largeur_de_la_grille] = valeur_poisson
+        
+        deplacement_possible = [[self.x + 1,self.y],[self.x - 1, self.y],[self.x, self.y + 1],[self.x, self.y -1]]
+        deplacement_choisi = random.choice(deplacement_possible)
+        self.x = deplacement_choisi[0]
+        self.y = deplacement_choisi[1]
+
+        if deplacement_choisi == deplacement_possible[0]:
+            Planet.display_planet[self.y % Planet.hauteur_de_la_grille][self.x % Planet.largeur_de_la_grille] = valeur_poisson
+            Planet.display_planet[self.y % Planet.hauteur_de_la_grille][(self.x - 1) % Planet.largeur_de_la_grille] = 0
+        
+            
+        elif deplacement_choisi == deplacement_possible[1]:
+            Planet.display_planet[self.y % Planet.hauteur_de_la_grille][self.x % Planet.largeur_de_la_grille] = valeur_poisson
+            Planet.display_planet[self.y % Planet.hauteur_de_la_grille][(self.x + 1) % Planet.largeur_de_la_grille] = 0            
+
+        elif deplacement_choisi == deplacement_possible[2]:
+            Planet.display_planet[self.y % Planet.hauteur_de_la_grille][self.x % Planet.largeur_de_la_grille] = valeur_poisson
+            Planet.display_planet[(self.y - 1) % Planet.hauteur_de_la_grille][self.x % Planet.largeur_de_la_grille] = 0            
+
+        elif deplacement_choisi == deplacement_possible[3]:
+            Planet.display_planet[self.y % Planet.hauteur_de_la_grille][self.x % Planet.largeur_de_la_grille] = valeur_poisson
+            Planet.display_planet[(self.y + 1) % Planet.hauteur_de_la_grille][self.x % Planet.largeur_de_la_grille] = 0
+
+        for ligne in Planet.display_planet:
+            print(*ligne)
+        print("-------------------------------")
+
+
+# charge de reproduction
+        # charge +=1
+
+        # for ligne in grille:
+        #     print(*ligne)
+        # print("-------------------------------")
+            
+
+
+
+planete_1 = Planet(10, 10)
+# planete_1.display_planet()
+poissons = [Poisson(planete_1) for _ in range(5)]
 
 chronon = 0
 
 while chronon < 50:
-    deplacement_possible = [[x + 1,y],[x - 1,y],[x, y + 1],[x, y -1]]
-
-    deplacement_choisi = random.choice(deplacement_possible)
-    x = deplacement_choisi[0]
-    y = deplacement_choisi[1]
-    valeur_poisson = "🐟"
-    
-    if deplacement_choisi == deplacement_possible[0]:
-        grille[y % hauteur_de_la_grille][x % largeur_de_la_grille] = valeur_poisson
-        grille[y % hauteur_de_la_grille][(x - 1) % largeur_de_la_grille] = 0
-
-    elif deplacement_choisi == deplacement_possible[1]:
-        grille[y % hauteur_de_la_grille][x % largeur_de_la_grille] = valeur_poisson
-        grille[y % hauteur_de_la_grille][(x + 1) % largeur_de_la_grille] = 0
-
-    elif deplacement_choisi == deplacement_possible[2]:
-        grille[y % hauteur_de_la_grille][x % largeur_de_la_grille] = valeur_poisson
-        grille[(y - 1) % hauteur_de_la_grille][x % largeur_de_la_grille] = 0
-
-    elif deplacement_choisi == deplacement_possible[3]:
-        grille[y % hauteur_de_la_grille][x % largeur_de_la_grille] = valeur_poisson
-        grille[(y + 1) % hauteur_de_la_grille][x % largeur_de_la_grille] = 0
-
-
-    
-    for ligne in grille:
-        print(*ligne)
-    print("-------------------------------")
-
+    for poisson in poissons:
+        poisson.deplacement()
+    planete_1.display()
     chronon += 1
