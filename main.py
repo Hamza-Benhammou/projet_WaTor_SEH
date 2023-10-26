@@ -1,7 +1,7 @@
 largeur_de_la_grille = 10
 hauteur_de_la_grille = 10
 
-grille = [[0 for hauteur in range(hauteur_de_la_grille)] for largeur in range(largeur_de_la_grille)]
+grille = [[0 for i in range(hauteur_de_la_grille)] for i in range(largeur_de_la_grille)]
 
 
 for ligne in grille:
@@ -13,3 +13,4 @@ def obtenir_case(x, y):
 case1 = obtenir_case(10, 11)
 print(case1)
 
+case2 = obtenir_case(0, 4)
