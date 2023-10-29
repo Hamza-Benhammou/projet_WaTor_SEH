@@ -6,19 +6,21 @@ class Planet:
     def __init__(self, largeur_de_la_grille, hauteur_de_la_grille):
         self.largeur_de_la_grille = largeur_de_la_grille
         self.hauteur_de_la_grille = hauteur_de_la_grille
-        self.display_planet = [[0 for hauteur in range(self.largeur_de_la_grille)] for largeur in range(self.hauteur_de_la_grille)]
+        self.grille = [[0 for hauteur in range(self.largeur_de_la_grille)] for largeur in range(self.hauteur_de_la_grille)]
+        self.poissons = []
+
 
     def display(self):
-        for ligne in self.display_planet:
+        for ligne in self.grille:
             print(*ligne)
         
 
     def est_case_vide(self, x, y):
-        return self.display_planet[y % self.hauteur_de_la_grille][x % self.largeur_de_la_grille] == 0
+        return self.grille[y % self.hauteur_de_la_grille][x % self.largeur_de_la_grille] == 0
 
     def deplacer_poisson(self, x_initial, y_initial, x_nouveau, y_nouveau, valeur_poisson):
-        self.display_planet[y_initial % self.hauteur_de_la_grille][x_initial % self.largeur_de_la_grille] = 0
-        self.display_planet[y_nouveau % self.hauteur_de_la_grille][x_nouveau % self.largeur_de_la_grille] = valeur_poisson
+        self.grille[y_initial % self.hauteur_de_la_grille][x_initial % self.largeur_de_la_grille] = 0
+        self.grille[y_nouveau % self.hauteur_de_la_grille][x_nouveau % self.largeur_de_la_grille] = valeur_poisson
 
 class Poisson:
     def __init__(self, planet):
@@ -59,10 +61,8 @@ class Poisson:
                 new_poisson = Poisson(self.planet)
                 new_poisson.x = nouveau_x
                 new_poisson.y = nouveau_y
-                new_poisson.deplacer_poisson(nouveau_x, nouveau_y)
-
-
-
+                self.planet.poissons.append(new_poisson)
+                
 
 def monde_1():
     planete_1 = Planet(10, 10)
@@ -80,22 +80,24 @@ def monde_1():
         time.sleep(.5)
 
 # Appel du monde 1
-monde_1()
+# monde_1()
 
 def monde_2():
-    planete_1 = Planet(30, 30)
-    poissons = [Poisson(planete_1) for _ in range(10)]
+    planete_1 = Planet(50, 50)
+    for _ in range(50):
+        poisson = Poisson(planete_1)
+        planete_1.poissons.append(poisson)
 
     chronon = 0
 
     while chronon < 100:
         os.system('clear')
         planete_1.display()
-        for poisson in poissons:
+        for poisson in planete_1.poissons:
             poisson.deplacement()
 
         chronon += 1
         time.sleep(.5)
 
-# Appel du monde 1
-# monde_2()
+# Appel du monde 2
+monde_2()
