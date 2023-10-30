@@ -11,7 +11,7 @@ class Planet:
         self.requins = []
 
     def peupler_le_monde(self, nombre_poissons, nombre_requins):        
-        self.poissons = [Poisson(self) for _ in range(nombre_poissons)]
+        self.poissons = [Poisson(self,) for _ in range(nombre_poissons)]
         self.requins = [Requin(self) for _ in range(nombre_requins)]
 
     def afficher_le_monde(self):
@@ -82,19 +82,19 @@ class Requin(Poisson):
     def __init__(self, planet):
         super().__init__(planet)
         self.valeur_poisson = '🦈'
-        # self.starvation = 8
+        self.starvation = 8
         
 
     def deplacement(self):
         super().deplacement()        
         self.temps_reproduction = 12
-    #     self.starvation -= 1
-    #     if self.starvation == 0:
-    #         self.mourir()  
+        self.starvation -= 1
+        if self.starvation == 0:
+            self.mourir()  
 
-    # def mourir(self):
-    #     self.valeur_poisson = 0
-    #     self.planet.requins.remove(self)
+    def mourir(self):
+        self.valeur_poisson = 0
+        self.planet.requins.remove(self)
         
 
     def reproduction(self):
