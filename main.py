@@ -74,13 +74,13 @@ class Poisson:
             [self.x, self.y + 1],
             [self.x, self.y - 1]
         ]
-        for _ in range(1):
-            nouveau_x, nouveau_y = self.choisir_deplacement(deplacement_possible)
-            if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
-                new_poisson = Poisson(self.planet)
-                new_poisson.x = nouveau_x
-                new_poisson.y = nouveau_y
-                self.planet.poissons.append(new_poisson)
+        
+        nouveau_x, nouveau_y = self.choisir_deplacement(deplacement_possible)
+        if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
+            new_poisson = Poisson(self.planet)
+            new_poisson.x = nouveau_x
+            new_poisson.y = nouveau_y
+            self.planet.poissons.append(new_poisson)
 
 planete_1 = Planet(30, 30)
 planete_1.peupler_le_monde(10)
