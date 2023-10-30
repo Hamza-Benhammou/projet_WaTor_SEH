@@ -82,7 +82,6 @@ class Poisson:
                 new_poisson.y = nouveau_y
                 self.planet.poissons.append(new_poisson)
 
-planete_1 = Planet(30, 30)
-planete_1.peupler_le_monde(2)
-
-planete_1.simuler(50)
+planete_1 = Planet(50, 50)
+planete_1.peupler_le_monde(100)
+planete_1.simuler(500)
