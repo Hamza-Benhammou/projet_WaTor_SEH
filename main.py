@@ -2,6 +2,8 @@ import random
 import os
 import time
 
+# Planete
+
 class Planet:
     def __init__(self, largeur_de_la_grille, hauteur_de_la_grille):
         self.largeur_de_la_grille = largeur_de_la_grille
@@ -30,6 +32,9 @@ class Planet:
             for poisson in self.poissons:
                 poisson.deplacement()
             time.sleep(0.5)
+
+
+# Poissons
 
 class Poisson:
     def __init__(self, planet):
@@ -82,43 +87,10 @@ class Poisson:
             new_poisson.y = nouveau_y
             self.planet.poissons.append(new_poisson)
 
-def monde_1():
-    planete_1 = Planet(10, 10)
-    poissons = [Poisson(planete_1) for _ in range(1)]
 
-    chronon = 0
+# Requins
 
-    while chronon < 50:
-        os.system('clear')
-        planete_1.display()
-        for poisson in poissons:
-            poisson.deplacement()
 
-        chronon += 1
-        time.sleep(.5)
-
-# Appel du monde 1
-# monde_1()
-
-def monde_2():
-    planete_1 = Planet(30, 30)
-    for _ in range(50):
-        poisson = Poisson(planete_1)
-        planete_1.poissons.append(poisson)
-
-    chronon = 0
-
-    while chronon < 100:
-        os.system('clear')
-        planete_1.display()
-        for poisson in planete_1.poissons:
-            poisson.deplacement()
-
-        chronon += 1
-        time.sleep(.5)
-
-# Appel du monde 2
-monde_2()
 planete_1 = Planet(30, 30)
 planete_1.peupler_le_monde(10)
 planete_1.simuler(500)
