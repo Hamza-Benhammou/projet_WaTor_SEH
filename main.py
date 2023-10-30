@@ -8,7 +8,7 @@ class Planet:
         self.hauteur_de_la_grille = hauteur_de_la_grille
         self.grille = [[0 for _ in range(self.largeur_de_la_grille)] for _ in range(self.hauteur_de_la_grille)]
         self.poissons = []
-
+        
     def peupler_le_monde(self, nombre_poissons):        
         self.poissons = [Poisson(self) for _ in range(nombre_poissons)]
 
