@@ -83,7 +83,7 @@ def monde_1():
 # monde_1()
 
 def monde_2():
-    planete_1 = Planet(50, 50)
+    planete_1 = Planet(30, 30)
     for _ in range(50):
         poisson = Poisson(planete_1)
         planete_1.poissons.append(poisson)
