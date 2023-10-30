@@ -1,4 +1,8 @@
 import random
+import os
+import time
+
+
 
 class Planet:
     def __init__(self, largeur_de_la_grille, hauteur_de_la_grille):
@@ -21,7 +25,7 @@ class Planet:
         for ligne in self.grid:
             for case in ligne:
                 if case is None:
-                    print(" ", end=" ")
+                    print("💧 ", end="💧 ")
                 else:
                     print(case.icon, end=" ")
             print()
@@ -37,7 +41,7 @@ class Creature:
         pass
 
 class Fish(Creature):
-    icon = "🐟"
+    icon = "🐠"
 
     def move(self):
         directions = [(0, 1), (0, -1), (1, 0), (-1, 0)]
@@ -101,7 +105,7 @@ class Shark(Creature):
 
 
 def main():
-    
+     
     largeur_de_la_grille = 10
     hauteur_de_la_grille = 10
 
@@ -112,15 +116,18 @@ def main():
 
     num_steps = 20
     step = 0
+    planete.display()
 
     while step < num_steps:
+        os.system('clear')
         planete.display()
         for poisson in poissons:
             poisson.move()
         for requin in requins:
             requin.move()
+            time.sleep(0.2)
         step += 1
-
+        
 if __name__ == "__main__":
     main()
 
