@@ -90,22 +90,6 @@ class Poisson:
 class Requin(Poisson):    
     
 
-    def deplacement(self):
-        deplacement_possible = [
-            [self.x + 1, self.y],
-            [self.x - 1, self.y],
-            [self.x, self.y + 1],
-            [self.x, self.y - 1]
-        ]
-        nouveau_x, nouveau_y = self.choisir_deplacement(deplacement_possible)
-        if self.deplacer_sur_planete(nouveau_x, nouveau_y):
-            self.age += 1
-            if self.age == 12:
-                self.reproduction()
-                self.age = 0
-
-    
-
     def deplacer_sur_planete(self, nouveau_x, nouveau_y):
         valeur_requin = '🦈'
         if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
@@ -129,7 +113,8 @@ class Requin(Poisson):
             new_requin.x = nouveau_x
             new_requin.y = nouveau_y
             self.planet.requins.append(new_requin)
+
         
 planete_1 = Planet(30, 30)
-planete_1.peupler_le_monde(10,5)
-planete_1.simuler(500)
+planete_1.peupler_le_monde(1,1)
+planete_1.simuler(50)
