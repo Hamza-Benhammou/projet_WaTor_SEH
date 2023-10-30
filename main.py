@@ -33,7 +33,6 @@ class Planet:
                 poisson.deplacement()
             time.sleep(0.5)
 
-
 # Poissons
 
 class Poisson:
@@ -87,9 +86,7 @@ class Poisson:
             new_poisson.y = nouveau_y
             self.planet.poissons.append(new_poisson)
 
-
 # Requins
-
 
 planete_1 = Planet(30, 30)
 planete_1.peupler_le_monde(10)
