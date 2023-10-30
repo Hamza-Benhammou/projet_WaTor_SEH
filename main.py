@@ -41,6 +41,7 @@ class Poisson:
         self.y = random.choice(range(planet.hauteur_de_la_grille))
         self.planet = planet
         self.age = 0
+        
 
     def deplacement(self):
         deplacement_possible = [
