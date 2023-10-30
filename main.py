@@ -68,17 +68,19 @@ class Poisson:
         return False
 
     def reproduction(self):
-        deplacement_possible = [[self.x + 1, self.y], [self.x - 1, self.y], [self.x, self.y + 1], [self.x, self.y - 1]]
-        for _ in range(1):
-            nouveau_x, nouveau_y = self.choisir_deplacement(deplacement_possible)
-            if self.planet.est_case_vide(nouveau_x, nouveau_y):
-                new_poisson = Poisson(self.planet)
-                new_poisson.x = nouveau_x
-                new_poisson.y = nouveau_y
-                new_poisson.deplacer_poisson(nouveau_x, nouveau_y)
-
-
-
+        deplacement_possible = [
+            [self.x + 1, self.y],
+            [self.x - 1, self.y],
+            [self.x, self.y + 1],
+            [self.x, self.y - 1]
+        ]
+        
+        nouveau_x, nouveau_y = self.choisir_deplacement(deplacement_possible)
+        if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
+            new_poisson = Poisson(self.planet)
+            new_poisson.x = nouveau_x
+            new_poisson.y = nouveau_y
+            self.planet.poissons.append(new_poisson)
 
 def monde_1():
     planete_1 = Planet(10, 10)
@@ -96,22 +98,27 @@ def monde_1():
         time.sleep(.5)
 
 # Appel du monde 1
-monde_1()
+# monde_1()
 
 def monde_2():
     planete_1 = Planet(30, 30)
-    poissons = [Poisson(planete_1) for _ in range(10)]
+    for _ in range(50):
+        poisson = Poisson(planete_1)
+        planete_1.poissons.append(poisson)
 
     chronon = 0
 
     while chronon < 100:
         os.system('clear')
         planete_1.display()
-        for poisson in poissons:
+        for poisson in planete_1.poissons:
             poisson.deplacement()
 
         chronon += 1
         time.sleep(.5)
 
-# Appel du monde 1
-# monde_2()
+# Appel du monde 2
+monde_2()
+planete_1 = Planet(30, 30)
+planete_1.peupler_le_monde(10)
+planete_1.simuler(500)
