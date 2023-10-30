@@ -8,9 +8,11 @@ class Planet:
         self.hauteur_de_la_grille = hauteur_de_la_grille
         self.grille = [[0 for _ in range(self.largeur_de_la_grille)] for _ in range(self.hauteur_de_la_grille)]
         self.poissons = []
-        
-    def peupler_le_monde(self, nombre_poissons):        
+        self.requins = []
+
+    def peupler_le_monde(self, nombre_poissons, nombre_requins):        
         self.poissons = [Poisson(self) for _ in range(nombre_poissons)]
+        self.requins = [Requin(self) for _ in range(nombre_requins)]
 
     def afficher_le_monde(self):
         for ligne in self.grille:
@@ -29,6 +31,8 @@ class Planet:
             self.afficher_le_monde()
             for poisson in self.poissons:
                 poisson.deplacement()
+            for requin in self.requins:
+                requin.deplacement()
             time.sleep(0.5)
 
 class Poisson:
@@ -82,6 +86,35 @@ class Poisson:
             new_poisson.y = nouveau_y
             self.planet.poissons.append(new_poisson)
 
+
+class Requin(Poisson):    
+    
+
+    def deplacer_sur_planete(self, nouveau_x, nouveau_y):
+        valeur_requin = '🦈'
+        if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
+            self.planet.mettre_a_jour_case(self.x, self.y, nouveau_x, nouveau_y, valeur_requin)
+            self.x = nouveau_x
+            self.y = nouveau_y
+            return True
+        return False
+
+    def reproduction(self):
+        deplacement_possible = [
+            [self.x + 1, self.y],
+            [self.x - 1, self.y],
+            [self.x, self.y + 1],
+            [self.x, self.y - 1]
+        ]
+        
+        nouveau_x, nouveau_y = self.choisir_deplacement(deplacement_possible)
+        if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
+            new_requin = Requin(self.planet)
+            new_requin.x = nouveau_x
+            new_requin.y = nouveau_y
+            self.planet.requins.append(new_requin)
+
+        
 planete_1 = Planet(30, 30)
-planete_1.peupler_le_monde(10)
-planete_1.simuler(500)
+planete_1.peupler_le_monde(1,1)
+planete_1.simuler(50)
