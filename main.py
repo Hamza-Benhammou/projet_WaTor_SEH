@@ -115,8 +115,6 @@ class Requin(Poisson):
                 self.reproduction()
                 self.age = 0   
     
-    
-
     def reproduction(self):
         deplacement_possible = [
             [self.x + 1, self.y],
