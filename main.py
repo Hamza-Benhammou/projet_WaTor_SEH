@@ -11,7 +11,7 @@ class Planet:
         self.requins = []
 
     def peupler_le_monde(self, nombre_poissons, nombre_requins):        
-        self.poissons = [Poisson(self) for _ in range(nombre_poissons)]
+        self.poissons = [Poisson(self,) for _ in range(nombre_poissons)]
         self.requins = [Requin(self) for _ in range(nombre_requins)]
 
     def afficher_le_monde(self):
@@ -20,6 +20,9 @@ class Planet:
 
     def verifer_case_vide(self, x, y):
         return self.grille[y % self.hauteur_de_la_grille][x % self.largeur_de_la_grille] == 0
+    
+    def verifer_case_poisson(self, x, y):
+        return self.grille[y % self.hauteur_de_la_grille][x % self.largeur_de_la_grille] == '\U0001f41f'
 
     def mettre_a_jour_case(self, x_initial, y_initial, x_nouveau, y_nouveau, valeur_poisson):
         self.grille[y_initial % self.hauteur_de_la_grille][x_initial % self.largeur_de_la_grille] = 0
@@ -30,7 +33,7 @@ class Planet:
             os.system('clear')
             self.afficher_le_monde()
             for poisson in self.poissons:
-                poisson.deplacement()
+                poisson.deplacement() 
             for requin in self.requins:
                 requin.deplacement()
             time.sleep(0.5)
@@ -40,23 +43,19 @@ class Poisson:
         self.x = random.choice(range(planet.largeur_de_la_grille))
         self.y = random.choice(range(planet.hauteur_de_la_grille))
         self.planet = planet
-        self.age = 0
-        
+        self.valeur_poisson = '\U0001f41f'
+        self.age = 0    
+        self.temps_reproduction = 8
+       
 
     def deplacement(self):
-        temps_reproduction = 8
-        deplacement_possible = [
-            [self.x + 1, self.y],
-            [self.x - 1, self.y],
-            [self.x, self.y + 1],
-            [self.x, self.y - 1]
-        ]
+        
+        deplacement_possible = [[self.x + 1, self.y],[self.x - 1, self.y],[self.x, self.y + 1],[self.x, self.y - 1]]
         nouveau_x, nouveau_y = self.choisir_deplacement(deplacement_possible)
-        if self.deplacer_sur_planete(nouveau_x, nouveau_y):
-            self.age += 1
-            if self.age == temps_reproduction:
-                self.reproduction()
-                self.age = 0
+        self.deplacer_sur_case_vide(nouveau_x, nouveau_y)
+
+
+
 
     def choisir_deplacement(self, deplacement_possible):
         deplacement_choisi = random.choice(deplacement_possible)
@@ -64,22 +63,20 @@ class Poisson:
         nouveau_y = deplacement_choisi[1]
         return nouveau_x, nouveau_y
 
-    def deplacer_sur_planete(self, nouveau_x, nouveau_y):
-        valeur_poisson = '\U0001f41f'
+    def deplacer_sur_case_vide(self, nouveau_x, nouveau_y):        
         if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
-            self.planet.mettre_a_jour_case(self.x, self.y, nouveau_x, nouveau_y, valeur_poisson)
+            self.planet.mettre_a_jour_case(self.x, self.y, nouveau_x, nouveau_y, self.valeur_poisson)
             self.x = nouveau_x
             self.y = nouveau_y
-            return True
-        return False
+            self.age += 1
+            if self.age == self.temps_reproduction:
+                self.reproduction()
+                self.age = 0
+        #     return True
+        # return False
 
     def reproduction(self):
-        deplacement_possible = [
-            [self.x + 1, self.y],
-            [self.x - 1, self.y],
-            [self.x, self.y + 1],
-            [self.x, self.y - 1]
-        ]
+        deplacement_possible = [[self.x + 1, self.y],[self.x - 1, self.y],[self.x, self.y + 1],[self.x, self.y - 1]]
         
         nouveau_x, nouveau_y = self.choisir_deplacement(deplacement_possible)
         if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
@@ -87,49 +84,50 @@ class Poisson:
             new_poisson.x = nouveau_x
             new_poisson.y = nouveau_y
             self.planet.poissons.append(new_poisson)
-
-
-class Requin(Poisson):    
-
-    def deplacer_sur_planete(self, nouveau_x, nouveau_y):
-        valeur_requin = '🦈'
-        if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
-            self.planet.mettre_a_jour_case(self.x, self.y, nouveau_x, nouveau_y, valeur_requin)
-            self.x = nouveau_x
-            self.y = nouveau_y
-            return True
-        return False
-    
+            
+class Requin(Poisson):
+    def __init__(self, planet):
+        super().__init__(planet)
+        self.valeur_poisson = '🦈'
+        self.starvation = 20
+        self.age = 0 
+        self.temps_reproduction = 12
+                
     def deplacement(self):
-        temps_reproduction = 12
-        deplacement_possible = [
-            [self.x + 1, self.y],
-            [self.x - 1, self.y],
-            [self.x, self.y + 1],
-            [self.x, self.y - 1]
-        ]
+        deplacement_possible = [[self.x + 1, self.y],[self.x - 1, self.y],[self.x, self.y + 1],[self.x, self.y - 1]]
         nouveau_x, nouveau_y = self.choisir_deplacement(deplacement_possible)
-        if self.deplacer_sur_planete(nouveau_x, nouveau_y):
-            self.age += 1
-            if self.age == temps_reproduction:
-                self.reproduction()
-                self.age = 0   
-    
+        self.deplacer_sur_case_vide(nouveau_x, nouveau_y)
+        self.starvation -= 1
+        if self.starvation == 0:
+            self.mourir() 
+
+    # def deplacer_sur_case_poisson(self, nouveau_x, nouveau_y):        
+    #     if self.planet.verifer_case_poisson(nouveau_x, nouveau_y):
+    #         self.planet.mettre_a_jour_case(self.x, self.y, nouveau_x, nouveau_y, self.valeur_poisson)
+    #         self.x = nouveau_x
+    #         self.y = nouveau_y
+    #         self.age += 1
+    #         if self.age == self.temps_reproduction:
+    #             self.reproduction()
+    #             self.age = 0
+    #     #     return True
+    #     # return False
+        
+    def mourir(self):
+        self.planet.mettre_a_jour_case(self.x, self.y, self.x, self.y, 0)
+        self.planet.requins.remove(self)
+
     def reproduction(self):
-        deplacement_possible = [
-            [self.x + 1, self.y],
-            [self.x - 1, self.y],
-            [self.x, self.y + 1],
-            [self.x, self.y - 1]
-        ]        
+        deplacement_possible = [[self.x + 1, self.y],[self.x - 1, self.y],[self.x, self.y + 1],[self.x, self.y - 1]]        
         nouveau_x, nouveau_y = self.choisir_deplacement(deplacement_possible)
         if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
             new_requin = Requin(self.planet)
             new_requin.x = nouveau_x
             new_requin.y = nouveau_y
             self.planet.requins.append(new_requin)
+            
 
         
-planete_1 = Planet(30, 30)
-planete_1.peupler_le_monde(20,7)
-planete_1.simuler(500)
+planete_1 = Planet(50, 50)
+planete_1.peupler_le_monde(1,1)
+planete_1.simuler(50)
