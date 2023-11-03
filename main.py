@@ -1,6 +1,8 @@
 import random
 import os
 import time
+import pygame
+import sys
 
 class Planet:
     def __init__(self, largeur_de_la_grille, hauteur_de_la_grille):
@@ -11,7 +13,7 @@ class Planet:
         self.requins = []
 
     def peupler_le_monde(self, nombre_poissons, nombre_requins):        
-        self.poissons = [Poisson(self,) for poisson in range(nombre_poissons)]
+        self.poissons = [Poisson(self) for poisson in range(nombre_poissons)]
         self.requins = [Requin(self) for requin in range(nombre_requins)]
         # Cette méthode ajoute le nombre de poissons et de requins dans chaque liste vide.
 
