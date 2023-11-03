@@ -32,6 +32,7 @@ class Planet:
     def verifer_case_poisson(self, y, x):
         return self.grille[y % self.hauteur_de_la_grille][x % self.largeur_de_la_grille] == '\U0001f41f' or '🐡'
     # Cette méthode vérifie si une case [y,x] contient un poisson
+    
 
     def simuler(self, duree):
         self.chronons = 0
@@ -59,8 +60,6 @@ class Planet:
             if self.mois == 12:
                 self.mois = 0
                 self.annee +=1
-            
-
             self.afficher_le_monde()       
             time.sleep(.2)
     # Cette méthode lance la simulation. duree = nombre de chronons
