@@ -18,7 +18,7 @@ class Planet:
     def afficher_le_monde(self):
         for ligne in self.grille:
             print(*ligne)
-        print(f"\nPopulation de poissons: {len(self.poissons)}, \nPopulation de requins: {len(self.requins)}")
+        print(f"\nPopulation de poissons: {len(self.poissons)} \nPopulation de requins: {len(self.requins)}\nNombre de chronons : {self.chronons}")
         # A chaque chronon, cette méthode affiche l'état actuel du monde et sa population.
 
     def verifer_case_vide(self, y, x):
@@ -34,12 +34,14 @@ class Planet:
         self.grille[y_nouveau % self.hauteur_de_la_grille][x_nouveau % self.largeur_de_la_grille] = valeur_poisson
 
     def simuler(self, duree):
+        self.chronons = 0
         for chronon in range(duree):
             os.system('cls')   
             for requin in self.requins:
                 requin.deplacement()         
             for poisson in self.poissons:
-                poisson.deplacement()             
+                poisson.deplacement() 
+            self.chronons += 1
             self.afficher_le_monde()       
             time.sleep(.2)
     # Cette méthode lance la simulation. duree = nombre de chronons
@@ -191,8 +193,7 @@ class Requin(Poisson):
 
 planete_1 = Planet(50, 50)
 # Initialiser la taille de la grille
-planete_1.peupler_le_monde(1000,400)
+planete_1.peupler_le_monde(1000,300)
 # Initialiser le nombre de poissons et de requins
 planete_1.simuler(5000)
 # Lance la simulation pour une durée de x chronons
-
