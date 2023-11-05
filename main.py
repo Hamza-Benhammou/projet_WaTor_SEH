@@ -1,8 +1,8 @@
 import random
 import os
 import time
-import pygame
-import sys
+# import pygame
+# import sys
 
 class Planet:
     def __init__(self, largeur_de_la_grille, hauteur_de_la_grille):
@@ -59,6 +59,7 @@ class Poisson:
 
     def choisir_deplacement_case_vide(self):
         case_vide = []
+        
         if self.planet.verifer_case_vide(self.y + 1, self.x):
             case_vide.append([(self.y + 1) % self.planet.hauteur_de_la_grille , self.x])
 
@@ -93,7 +94,6 @@ class Poisson:
         else:
             return
         self.age += 1  
-
         # Si la liste case_vide contient des coordonnées, le poisson se reproduit s'il a atteint l'age et se déplace 
     
     def reproduction(self):
