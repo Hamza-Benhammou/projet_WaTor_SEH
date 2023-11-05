@@ -12,17 +12,21 @@ class Planet:
         self.poissons = []
         self.gros_poissons = []
         self.requins = []
+        self.rocks = []
+        self.algues = []
 
-    def peupler_le_monde(self, nombre_poissons, nombre_gros_poissons_poissons, nombre_requins):        
+    def peupler_le_monde(self, nombre_poissons, nombre_gros_poissons_poissons, nombre_requins, nombres_de_rocks, nombres_de_algues):        
         self.poissons = [Poisson(self) for poisson in range(nombre_poissons)]
         self.gros_poissons = [GrosPoisson(self) for gros_poissons in range(nombre_gros_poissons_poissons)]
         self.requins = [Requin(self) for requin in range(nombre_requins)]
+        self.rocks = [Obstacle(self) for obstacle in range(nombres_de_rocks)]
+        self.algues = [Algue(self) for requin in range(nombres_de_algues)]
         # Cette méthode ajoute le nombre de poissons et de requins dans chaque liste vide.
 
     def afficher_le_monde(self):
         for ligne in self.grille:
             print(*ligne)
-        print(f"\nPopulation de poissons: {len(self.poissons)}\nPopulation de gros poissons: {len(self.gros_poissons)} \nPopulation de requins: {len(self.requins)}\nNombres d'entité : {len(self.poissons)+len(self.gros_poissons)+len(self.requins)}\nNombre de chronons : {self.chronons}\nHeure : {self.heure}h00\nJours : {self.jour}\nMois : {self.mois}\nAnnée : {self.annee}")
+        print(f"\nPopulation de poissons: {len(self.poissons)}\nPopulation de gros poissons: {len(self.gros_poissons)} \nPopulation de requins: {len(self.requins)}\nNombres d'obstacles : {len(self.rocks)+len(self.algues)}\nNombres d'entité : {len(self.poissons)+len(self.gros_poissons)+len(self.requins)+len(self.rocks)+len(self.algues)}\nNombre de chronons : {self.chronons}\nHeure : {self.heure}h00\nJours : {self.jour}\nMois : {self.mois}\nAnnée : {self.annee}")
         # A chaque chronon, cette méthode affiche l'état actuel du monde et sa population.
 
     def verifer_case_vide(self, y, x):
@@ -251,12 +255,29 @@ class Requin(Poisson):
         # self.planet.mettre_a_jour_case(self.y, self.x, self.y, self.x, 0)
         self.planet.grille[self.y][self.x] = 0
         self.planet.requins.remove(self) 
-    # Quand le requin meurt, il est retiré de la liste Requin   
+    # Quand le requin meurt, il est retiré de la liste Requin 
+
+
+class Obstacle:
+    def __init__(self, planet):
+        self.x = random.choice(range(planet.largeur_de_la_grille))
+        self.y = random.choice(range(planet.hauteur_de_la_grille))
+        self.planet = planet
+        self.valeur_obstacle = '🪨'
+        self.planet.grille[self.y][self.x] = self.valeur_obstacle
+    
+
+class Algue(Obstacle):
+    def __init__(self, planet):
+        super().__init__(planet)
+        self.valeur_obstacle = '🌿'
+        self.planet.grille[self.y][self.x] = self.valeur_obstacle
+
 
 
 planete_1 = Planet(50, 50)
 # Initialiser la taille de la grille
-planete_1.peupler_le_monde(300,400,20)
-# Initialiser le nombre de poissons et de requins
+planete_1.peupler_le_monde(300,400,20,100,100)
+# Initialiser le nombre de poissons, de requins, de rocks et d'algues
 planete_1.simuler(5000)
 # Lance la simulation pour une durée de x chronons
