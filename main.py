@@ -26,7 +26,7 @@ class Planet:
     def afficher_le_monde(self):
         for ligne in self.grille:
             print(*ligne)
-        print(f"\nPopulation de poissons: {len(self.poissons)}\nPopulation de gros poissons: {len(self.gros_poissons)} \nPopulation de requins: {len(self.requins)}\nNombres d'obstacles : {len(self.rocks)+len(self.algues)}\nNombres d'entité : {len(self.poissons)+len(self.gros_poissons)+len(self.requins)+len(self.rocks)+len(self.algues)}\nNombre de chronons : {self.chronons}\nHeure : {self.heure}h00\nJours : {self.jour}\nMois : {self.mois}\nAnnée : {self.annee}")
+        print(f"\nPopulation de petits poissons: {len(self.poissons)}\nPopulation de gros poissons: {len(self.gros_poissons)} \nPopulation de requins: {len(self.requins)}\nNombres d'obstacles : {len(self.rocks)+len(self.algues)}\nNombres d'entité : {len(self.poissons)+len(self.gros_poissons)+len(self.requins)+len(self.rocks)+len(self.algues)}\nNombre de chronons : {self.chronons}\nHeure : {self.heure}h00\nJours : {self.jour}\nMois : {self.mois}\nAnnée : {self.annee}")
         # A chaque chronon, cette méthode affiche l'état actuel du monde et sa population.
 
     def verifer_case_vide(self, y, x):
