@@ -191,7 +191,8 @@ class Requin(Poisson):
         # self.planet.mettre_a_jour_case(self.y, self.x, self.y, self.x, 0)
         self.planet.grille[self.y][self.x] = 0
         self.planet.requins.remove(self) 
-    # Quand le requin meurt, il est retiré de la liste Requin   
+    # Quand le requin meurt, il est retiré de la liste Requin 
+
 
 planete_1 = Planet(50, 50)
 # Initialiser la taille de la grille
