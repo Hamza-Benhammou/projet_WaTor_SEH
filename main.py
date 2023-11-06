@@ -84,28 +84,6 @@ class Poisson:
                 new_poisson.x = nouveau_x
                 new_poisson.y = nouveau_y
                 self.planet.poissons.append(new_poisson)
-
-
-    # def choisir_case_vide(self, nouveau_x, nouveau_y):        
-    #     if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
-    #         self.planet.mettre_a_jour_case(self.x, self.y, nouveau_x, nouveau_y, self.valeur_poisson)
-    #         self.x = nouveau_x
-    #         self.y = nouveau_y
-    #         self.age += 1
-    #         if self.age == self.temps_reproduction:
-    #             self.reproduction()
-    #             self.age = 0
-    #     #     return True
-    #     # return False
-
-    # def reproduction(self):
-    #     deplacement_possible = [[self.x + 1, self.y],[self.x - 1, self.y],[self.x, self.y + 1],[self.x, self.y - 1]]        
-    #     nouveau_x, nouveau_y = self.choix
-    #     if self.planet.verifer_case_vide(nouveau_x, nouveau_y):
-    #         new_poisson = Poisson(self.planet)
-    #         new_poisson.x = nouveau_x
-    #         new_poisson.y = nouveau_y
-    #         self.planet.poissons.append(new_poisson)
             
 class Requin(Poisson):
     def __init__(self, planet):
@@ -182,5 +160,5 @@ class Requin(Poisson):
 
         
 planete_1 = Planet(10, 10)
-planete_1.peupler_le_monde(1,1)
+planete_1.peupler_le_monde(91,1)
 planete_1.simuler(50)
