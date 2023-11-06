@@ -46,7 +46,7 @@ class Planet:
         self.annee = 0
 
         for chronon in range(duree):
-            os.system('cls')   
+            os.system('clear')   
             for requin in self.requins:
                 requin.deplacement()         
             for poisson in self.poissons:
@@ -275,9 +275,9 @@ class Algue(Obstacle):
 
 
 
-planete_1 = Planet(50, 50)
+planete_1 = Planet(10, 10)
 # Initialiser la taille de la grille
-planete_1.peupler_le_monde(300,400,20,100,100)
+planete_1.peupler_le_monde(30,20,3,10,10)
 # Initialiser le nombre de poissons, de requins, de rocks et d'algues
 planete_1.simuler(5000)
 # Lance la simulation pour une durée de x chronons
