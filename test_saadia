@@ -1,0 +1,10 @@
+import pygame
+import random
+import os
+import time
+
+from pygame.sprite import _Group
+
+class Planet(pygame.sprite.Sprite):
+    def __init__(self):
+        super(Planet,self).__init__(*groups)
