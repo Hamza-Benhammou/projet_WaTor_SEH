@@ -46,7 +46,7 @@ class Planet:
         self.annee = 0
 
         for chronon in range(duree):
-            os.system('clear')   
+            os.system('clear')
             for requin in self.requins:
                 requin.deplacement()         
             for poisson in self.poissons:
@@ -65,7 +65,7 @@ class Planet:
                 self.mois = 0
                 self.annee +=1
             self.afficher_le_monde()       
-            time.sleep(.2)
+            time.sleep(0.7)
     # Cette méthode lance la simulation. duree = nombre de chronons
 
 class Poisson:
@@ -265,7 +265,6 @@ class Obstacle:
         self.planet = planet
         self.valeur_obstacle = '🪨'
         self.planet.grille[self.y][self.x] = self.valeur_obstacle
-    
 
 class Algue(Obstacle):
     def __init__(self, planet):
@@ -275,9 +274,9 @@ class Algue(Obstacle):
 
 
 
-planete_1 = Planet(10, 10)
+planete_1 = Planet(50, 50)
 # Initialiser la taille de la grille
-planete_1.peupler_le_monde(30,20,3,10,10)
+planete_1.peupler_le_monde(320,220,60,0,0)
 # Initialiser le nombre de poissons, de requins, de rocks et d'algues
 planete_1.simuler(5000)
 # Lance la simulation pour une durée de x chronons
